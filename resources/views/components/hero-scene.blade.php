@@ -35,7 +35,7 @@
             <div class="hero-orbit__core-glow"></div>
             <div class="hero-orbit__core-inner">
                 <span class="hero-orbit__core-num">۳</span>
-                <span class="hero-orbit__core-label">محصول یکپارچه</span>
+                <span class="hero-orbit__core-label">محصول فعال · یک اکوسیستم</span>
             </div>
         </div>
 

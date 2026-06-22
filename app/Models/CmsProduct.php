@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CmsProduct extends Model
 {
     protected $fillable = [
-        'slug', 'title', 'subtitle', 'description', 'accent', 'visual',
+        'slug', 'title', 'subtitle', 'description', 'accent', 'visual', 'dashboard_image',
         'audience', 'features', 'cta', 'body', 'meta_title', 'meta_description',
         'meta_keywords', 'og_image', 'is_published', 'is_featured', 'sort_order',
     ];

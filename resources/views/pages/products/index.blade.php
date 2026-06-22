@@ -26,7 +26,8 @@
                         :href="$product['href']"
                         :audience="$product['audience']"
                         :cta="$product['cta']"
-                        @class(['product-card--featured' => ($product['is_featured'] ?? false) || $product['accent'] === 'orange'])
+                        :featured="($product['is_featured'] ?? false)"
+                        :dashboard-image="$product['dashboard_image'] ?? null"
                     />
                 @endforeach
             </div>

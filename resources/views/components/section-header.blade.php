@@ -14,7 +14,7 @@
     };
 @endphp
 
-<header {{ $attributes->merge(['class' => "mb-16 {$alignClass}"]) }} data-sr="up">
+<header {{ $attributes->merge(['class' => "mb-10 lg:mb-12 {$alignClass}"]) }} data-sr="up">
     @if ($badge)
         <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-medium text-bisan-orange-light backdrop-blur-xl">
             <span class="h-1.5 w-1.5 rounded-full bg-bisan-orange shadow-[0_0_10px_rgba(255,102,0,0.8)]"></span>

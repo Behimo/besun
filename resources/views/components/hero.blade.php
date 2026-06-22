@@ -50,8 +50,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>
-                    <a href="{{ route('products.index') }}" class="hero-cta hero-cta--ghost w-full sm:w-auto">
-                        {{ $hero['cta_secondary'] ?? 'کدام محصول مناسب من است؟' }}
+                    <a href="#products" class="hero-cta hero-cta--ghost w-full sm:w-auto">
+                        {{ $hero['cta_secondary'] ?? 'ببینید چه ساخته‌ایم' }}
                     </a>
                 </div>
 
@@ -81,7 +81,12 @@
         <div class="landing-container relative z-10 mt-14 lg:mt-20" data-sr="up" data-sr-delay="400">
             <div class="hero-pillars">
                 @foreach ($heroPills as $item)
-                    <a href="{{ route('products.index') }}" class="hero-pillar hero-pillar--{{ $pillarAccents[$loop->index % 3] }} group">
+                    @php
+                        $pillarHref = !empty($item['slug'])
+                            ? route($item['href'] ?? 'products.show', $item['slug'])
+                            : route('products.index');
+                    @endphp
+                    <a href="{{ $pillarHref }}" class="hero-pillar hero-pillar--{{ $pillarAccents[$loop->index % 3] }} group">
                         <span class="hero-pillar__num" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                         <span class="hero-pillar__icon" aria-hidden="true">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">

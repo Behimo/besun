@@ -7,6 +7,7 @@ use App\Models\CmsProduct;
 use App\Models\CmsSetting;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class SiteDataService
 {
@@ -71,9 +72,63 @@ class SiteDataService
     public function heroPills(): array
     {
         return [
-            ['title' => 'فروش بیشتر', 'text' => 'مشتری را گم نکنید — از تماس اول تا قرارداد'],
-            ['title' => 'کار منظم‌تر', 'text' => 'نوبت، پرسنل و درآمد — بدون کاغذ و حدس'],
-            ['title' => 'سایت به CRM', 'text' => 'لیدهای سایت خودکار وارد سیستم شما شود'],
+            ['title' => 'راهبر CRM', 'text' => 'قیف فروش، پیگیری و گزارش — برای تیم‌های فروش', 'href' => 'products.show', 'slug' => 'rahbar'],
+            ['title' => 'نوژارو', 'text' => 'نوبت آنلاین، پرسنل و چند شعبه — برای خدمات', 'href' => 'products.show', 'slug' => 'nojaro'],
+            ['title' => 'افزونه وردپرس', 'text' => 'اتصال سایت و ووکامرس به CRM — خودکار', 'href' => 'products.show', 'slug' => 'wordpress-plugin'],
+        ];
+    }
+
+    public function devCapabilities(): array
+    {
+        return [
+            [
+                'title' => 'معماری مقیاس‌پذیر',
+                'desc' => 'سیستم‌هایی که با رشد کسب‌وکار شما بزرگ می‌شوند — نه اینکه دوباره از صفر بسازید.',
+                'icon' => 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+            ],
+            [
+                'title' => 'API و یکپارچه‌سازی',
+                'desc' => 'اتصال CRM، سایت، فروشگاه و ابزارهای ثالث — بدون کار دستی و بدون خطا.',
+                'icon' => 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+            ],
+            [
+                'title' => 'کد تمیز و قابل نگهداری',
+                'desc' => 'استانداردهای مهندسی نرم‌افزار — تست، مستندسازی و تحویل منظم.',
+                'icon' => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+            ],
+            [
+                'title' => 'تحویل سریع MVP',
+                'desc' => 'نسخه اولیه در چند هفته — برای تست بازار یا جذب سرمایه.',
+                'icon' => 'M13 10V3L4 14h7v7l9-11h-7z',
+            ],
+        ];
+    }
+
+    public function devStats(): array
+    {
+        return [
+            ['value' => '+۱۵', 'label' => 'توسعه‌دهنده'],
+            ['value' => '+۵۰', 'label' => 'پروژه تحویل‌شده'],
+            ['value' => '۹۹.۹٪', 'label' => 'آپتایم محصولات'],
+            ['value' => '< ۴۸h', 'label' => 'پاسخ فنی'],
+        ];
+    }
+
+    public function techStack(): array
+    {
+        return [
+            ['name' => 'Laravel', 'color' => 'orange'],
+            ['name' => 'PHP 8', 'color' => 'purple'],
+            ['name' => 'Vue.js', 'color' => 'blue'],
+            ['name' => 'React', 'color' => 'blue'],
+            ['name' => 'MySQL', 'color' => 'orange'],
+            ['name' => 'Redis', 'color' => 'purple'],
+            ['name' => 'Docker', 'color' => 'blue'],
+            ['name' => 'REST API', 'color' => 'orange'],
+            ['name' => 'WordPress', 'color' => 'blue'],
+            ['name' => 'Tailwind CSS', 'color' => 'purple'],
+            ['name' => 'Alpine.js', 'color' => 'orange'],
+            ['name' => 'CI/CD', 'color' => 'blue'],
         ];
     }
 
@@ -392,6 +447,19 @@ class SiteDataService
         Cache::forget('cms_home_content');
     }
 
+    public function productImageUrl(?string $image): ?string
+    {
+        if (! $image) {
+            return null;
+        }
+
+        if (str_starts_with($image, 'http') || str_starts_with($image, '/')) {
+            return $image;
+        }
+
+        return Storage::disk('public')->url($image);
+    }
+
     private function formatProduct(CmsProduct $product): array
     {
         return [
@@ -401,6 +469,7 @@ class SiteDataService
             'description' => $product->description,
             'accent' => $product->accent,
             'visual' => $product->visual,
+            'dashboard_image' => $this->productImageUrl($product->dashboard_image),
             'audience' => $product->audience,
             'features' => $product->features ?? [],
             'cta' => $product->cta,

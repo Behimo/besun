@@ -7,6 +7,8 @@ use App\Models\CmsProduct;
 use App\Services\SiteDataService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -28,6 +30,8 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validateProduct($request);
+        $validated['dashboard_image'] = $this->resolveDashboardImage($request);
+
         CmsProduct::query()->create($validated);
         $this->siteData->clearCache();
 
@@ -41,7 +45,10 @@ class ProductController extends Controller
 
     public function update(Request $request, CmsProduct $product): RedirectResponse
     {
-        $product->update($this->validateProduct($request));
+        $validated = $this->validateProduct($request);
+        $validated['dashboard_image'] = $this->resolveDashboardImage($request, $product);
+
+        $product->update($validated);
         $this->siteData->clearCache();
 
         return redirect()->route('admin.products.index')->with('success', 'محصول به‌روزرسانی شد.');
@@ -49,6 +56,7 @@ class ProductController extends Controller
 
     public function destroy(CmsProduct $product): RedirectResponse
     {
+        $this->deleteStoredImage($product->dashboard_image);
         $product->delete();
         $this->siteData->clearCache();
 
@@ -72,6 +80,8 @@ class ProductController extends Controller
             'meta_description' => ['nullable', 'string', 'max:500'],
             'meta_keywords' => ['nullable', 'string', 'max:300'],
             'og_image' => ['nullable', 'string', 'max:500'],
+            'dashboard_image' => ['nullable', 'string', 'max:500'],
+            'dashboard_image_file' => ['nullable', 'image', 'max:5120', 'mimes:jpg,jpeg,png,webp'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
@@ -81,6 +91,51 @@ class ProductController extends Controller
         $validated['is_published'] = $request->boolean('is_published');
         $validated['is_featured'] = $request->boolean('is_featured');
 
+        unset($validated['dashboard_image_file']);
+
         return $validated;
+    }
+
+    private function resolveDashboardImage(Request $request, ?CmsProduct $product = null): ?string
+    {
+        if ($request->boolean('remove_dashboard_image')) {
+            $this->deleteStoredImage($product?->dashboard_image);
+
+            return null;
+        }
+
+        if ($request->hasFile('dashboard_image_file')) {
+            $this->deleteStoredImage($product?->dashboard_image);
+
+            return $this->storeDashboardImage($request->file('dashboard_image_file'), $request->input('slug'));
+        }
+
+        if ($request->filled('dashboard_image')) {
+            $url = trim($request->input('dashboard_image'));
+
+            if ($product && $url !== $product->dashboard_image) {
+                $this->deleteStoredImage($product->dashboard_image);
+            }
+
+            return $url;
+        }
+
+        return $product?->dashboard_image;
+    }
+
+    private function storeDashboardImage(UploadedFile $file, string $slug): string
+    {
+        $extension = $file->getClientOriginalExtension() ?: 'webp';
+
+        return $file->storeAs('cms/products', $slug.'-dashboard.'.$extension, 'public');
+    }
+
+    private function deleteStoredImage(?string $image): void
+    {
+        if (! $image || str_starts_with($image, 'http') || str_starts_with($image, '/')) {
+            return;
+        }
+
+        Storage::disk('public')->delete($image);
     }
 }

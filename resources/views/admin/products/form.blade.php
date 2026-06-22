@@ -8,7 +8,7 @@
     <h4 class="mt-2 mb-0">{{ $product->exists ? 'ویرایش: '.$product->title : 'محصول جدید' }}</h4>
 </div>
 
-<form method="POST" action="{{ $product->exists ? route('admin.products.update', $product) : route('admin.products.store') }}" class="card" style="max-width: 48rem;">
+<form method="POST" action="{{ $product->exists ? route('admin.products.update', $product) : route('admin.products.store') }}" class="card" style="max-width: 48rem;" enctype="multipart/form-data">
     @csrf
     @if ($product->exists) @method('PUT') @endif
     <div class="card-body">
@@ -42,6 +42,41 @@
             <label class="form-label">توضیح کوتاه</label>
             <textarea name="description" rows="2" class="form-control">{{ old('description', $product->description) }}</textarea>
         </div>
+
+        @php
+            $dashboardPreview = null;
+            if ($product->dashboard_image) {
+                $dashboardPreview = str_starts_with($product->dashboard_image, 'http') || str_starts_with($product->dashboard_image, '/')
+                    ? $product->dashboard_image
+                    : \Illuminate\Support\Facades\Storage::disk('public')->url($product->dashboard_image);
+            }
+        @endphp
+        <div class="mb-4 rounded border p-3">
+            <label class="form-label fw-semibold">تصویر داشبورد محصول</label>
+            <p class="form-text mb-3">اسکرین‌شات داشبورد روی کارت محصول در صفحه اصلی و لیست محصولات نمایش داده می‌شود. نسبت پیشنهادی ۱۶:۹ یا عریض‌تر.</p>
+
+            @if ($dashboardPreview)
+                <div class="mb-3">
+                    <img src="{{ $dashboardPreview }}" alt="پیش‌نمایش داشبورد" class="img-fluid rounded border" style="max-height: 12rem; object-fit: cover; object-position: top;">
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="remove_dashboard_image" value="1" class="form-check-input" id="remove_dashboard_image" @checked(old('remove_dashboard_image'))>
+                    <label class="form-check-label text-danger" for="remove_dashboard_image">حذف تصویر فعلی</label>
+                </div>
+            @endif
+
+            <div class="mb-3">
+                <label class="form-label">آپلود تصویر</label>
+                <input type="file" name="dashboard_image_file" class="form-control" accept="image/jpeg,image/png,image/webp">
+                <div class="form-text">JPG، PNG یا WebP — حداکثر ۵ مگابایت</div>
+            </div>
+            <div class="mb-0">
+                <label class="form-label">یا URL تصویر</label>
+                <input type="text" name="dashboard_image" value="{{ old('dashboard_image', $product->dashboard_image) }}" class="form-control" dir="ltr" placeholder="/storage/cms/...">
+                <div class="form-text">از <a href="{{ route('admin.media.index') }}">مدیریت رسانه</a> آپلود کنید و URL را اینجا بگذارید.</div>
+            </div>
+        </div>
+
         <div class="mb-3">
             <label class="form-label">مخاطب</label>
             <input type="text" name="audience" value="{{ old('audience', $product->audience) }}" class="form-control">
