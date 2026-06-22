@@ -1,9 +1,16 @@
-@props(['heroPills' => []])
+@props(['heroPills' => [], 'hero' => []])
+
+@php
+    $rotateWords = $hero['rotate_words'] ?? ['فروش بیشتر', 'کار منظم‌تر', 'رشد سریع‌تر'];
+    $rotateJson = json_encode($rotateWords, JSON_UNESCAPED_UNICODE);
+    $chips = $hero['chips'] ?? ['پاسخ در ۲۴ ساعت', 'پشتیبانی فارسی', 'بدون پیچیدگی فنی'];
+@endphp
 
 <section id="hero" data-section="hero" class="landing-section section-hero relative flex min-h-[90vh] flex-col justify-center overflow-hidden pt-28 pb-14 lg:min-h-screen lg:pt-32 lg:pb-16">
     <div class="hero-backdrop" aria-hidden="true">
         <div class="hero-backdrop__beam"></div>
         <div class="hero-backdrop__mesh"></div>
+        <div class="hero-backdrop__particles"></div>
     </div>
 
     <div class="landing-container relative z-10">
@@ -11,15 +18,15 @@
             <div class="text-center lg:text-right" data-sr="left">
                 <div class="hero-eyebrow mb-6 inline-flex" data-sr="up" data-sr-delay="0">
                     <span class="hero-eyebrow__dot" aria-hidden="true"></span>
-                    <span>هلدینگ فناوری · بیش از ۱۰ سال در بازار ایران</span>
+                    <span>{{ $hero['eyebrow'] ?? '+۱۲۰۰ کسب‌وکار · ۳ محصول آماده · پروژه اختصاصی' }}</span>
                 </div>
 
                 <h1 class="hero-title mb-6" data-sr="up" data-sr-delay="80">
-                    <span class="hero-title__line">زیرساخت رشد</span>
+                    <span class="hero-title__line">{{ $hero['title_line1'] ?? 'نرم‌افزار درست برای' }}</span>
                     <span class="hero-title__line hero-title__line--accent">
                         <span
                             class="hero-title__rotate"
-                            x-data="textRotate(['هوشمند', 'مقیاس‌پذیر', 'یکپارچه'], 3200)"
+                            x-data="textRotate({{ $rotateJson }}, 3200)"
                         >
                             <span
                                 class="hero-title__shimmer"
@@ -28,34 +35,30 @@
                             ></span>
                         </span>
                     </span>
-                    <span class="hero-title__line">برای کسب‌وکار شما</span>
+                    <span class="hero-title__line">{{ $hero['title_line2'] ?? 'کسب‌وکار شما' }}</span>
                 </h1>
 
                 <p class="hero-lead mx-auto mb-9 max-w-xl lg:mx-0" data-sr="up" data-sr-delay="160">
-                    از <span class="text-white/90">CRM و فروش</span> تا
-                    <span class="text-white/90">مدیریت خدمات</span> و
-                    <span class="text-white/90">اتصال وردپرس</span> —
-                    همه‌چیز در یک اکوسیستم برای رشد
-                    <span class="hero-lead__highlight">سریع‌تر و حرفه‌ای‌تر</span>.
+                    {{ $hero['lead'] ?? '۳ محصول آماده داریم — یا اگر نیازتان فرق دارد، همان را برایتان می‌سازیم. یک تماس کافی است تا بفهمید کدام راه برای شما بهتر است.' }}
                 </p>
 
                 <div class="mb-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start" data-sr="up" data-sr-delay="240">
-                    <a href="#contact" class="hero-cta hero-cta--primary w-full sm:w-auto">
+                    <a href="{{ route('contact') }}" class="hero-cta hero-cta--primary w-full sm:w-auto">
                         <span class="hero-cta__glow" aria-hidden="true"></span>
-                        <span>درخواست دمو رایگان</span>
+                        <span>{{ $hero['cta_primary'] ?? 'مشاوره رایگان' }}</span>
                         <svg class="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>
-                    <a href="#products" class="hero-cta hero-cta--ghost w-full sm:w-auto">
-                        مشاهده محصولات
+                    <a href="{{ route('products.index') }}" class="hero-cta hero-cta--ghost w-full sm:w-auto">
+                        {{ $hero['cta_secondary'] ?? 'کدام محصول مناسب من است؟' }}
                     </a>
                 </div>
 
                 <div class="hero-chips flex flex-wrap items-center justify-center gap-2 lg:justify-start" data-sr="up" data-sr-delay="320">
-                    <span class="hero-chip">+۱۲۰۰ کسب‌وکار فعال</span>
-                    <span class="hero-chip">پشتیبانی فارسی</span>
-                    <span class="hero-chip">راه‌اندازی ابری</span>
+                    @foreach ($chips as $chip)
+                        <span class="hero-chip">{{ $chip }}</span>
+                    @endforeach
                 </div>
             </div>
 
@@ -78,7 +81,7 @@
         <div class="landing-container relative z-10 mt-14 lg:mt-20" data-sr="up" data-sr-delay="400">
             <div class="hero-pillars">
                 @foreach ($heroPills as $item)
-                    <a href="#products" class="hero-pillar hero-pillar--{{ $pillarAccents[$loop->index % 3] }} group">
+                    <a href="{{ route('products.index') }}" class="hero-pillar hero-pillar--{{ $pillarAccents[$loop->index % 3] }} group">
                         <span class="hero-pillar__num" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                         <span class="hero-pillar__icon" aria-hidden="true">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -100,8 +103,8 @@
         </div>
     @endif
 
-    <a href="#why" class="scroll-indicator z-20 hidden lg:flex" aria-label="اسکرول به بخش بعدی" data-sr="up" data-sr-delay="500">
-        <span class="scroll-indicator__text">بیشتر بدانید</span>
+    <a href="#products" class="scroll-indicator z-20 hidden lg:flex" aria-label="اسکرول به بخش بعدی" data-sr="up" data-sr-delay="500">
+        <span class="scroll-indicator__text">ببینید چه داریم</span>
         <span class="scroll-indicator__mouse">
             <span class="scroll-indicator__wheel"></span>
         </span>

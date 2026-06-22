@@ -1,0 +1,30 @@
+@import '@fontsource/vazirmatn/400.css';
+@import '@fontsource/vazirmatn/500.css';
+@import '@fontsource/vazirmatn/600.css';
+@import '@fontsource/vazirmatn/700.css';
+
+:root,
+[data-bs-theme='light'],
+[data-bs-theme='dark'] {
+  --bs-font-sans-serif: 'Vazirmatn', tahoma, sans-serif;
+  --bs-body-font-family: 'Vazirmatn', tahoma, sans-serif;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+.form-control,
+.form-select,
+.btn,
+.dropdown-menu,
+.menu-link,
+.navbar,
+.card,
+.alert,
+.modal,
+.table {
+  font-family: 'Vazirmatn', tahoma, sans-serif;
+}

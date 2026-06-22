@@ -78,7 +78,7 @@
         </span>
 
         @if ($audience)
-            <p class="mb-2 text-xs text-slate-500">مناسب برای: {{ $audience }}</p>
+            <p class="mb-2 text-xs text-slate-500">اگر {{ $audience }} هستید</p>
         @endif
 
         <h3 class="mb-2 text-2xl font-bold text-white">{{ $title }}</h3>

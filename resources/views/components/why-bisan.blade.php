@@ -4,10 +4,10 @@
     <div class="section-glow section-glow--purple" data-parallax="-0.04"></div>
     <div class="landing-container">
         <x-section-header
-            badge="مزیت رقابتی"
-            title="چرا"
-            highlight="بیسان؟"
-            subtitle="زیرساختی یکپارچه برای فروش، عملیات و ارتباط با مشتری — نه فقط یک نرم‌افزار جداگانه"
+            badge="چرا ما؟"
+            title="شما نتیجه می‌گیرید،"
+            highlight="نه دردسر"
+            subtitle="محصول آماده یا پروژه اختصاصی — در هر دو حالت، کار را ساده می‌کنیم"
         />
 
         <div class="bento-grid" data-sr="scale" data-sr-delay="100">
@@ -34,7 +34,7 @@
                                 <div class="bento-card__visual--speed">
                                     <span class="bento-speed-num">۳ روز</span>
                                     <div class="bento-speed-bar"><div class="bento-speed-fill"></div></div>
-                                    <span class="mt-2 text-xs text-slate-500">میانگین راه‌اندازی</span>
+                                    <span class="mt-2 text-xs text-slate-500">تا شروع کار شما</span>
                                 </div>
                             @elseif ($item['visual'] === 'analytics')
                                 <div class="bento-card__visual--layout">

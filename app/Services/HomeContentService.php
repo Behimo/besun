@@ -1,0 +1,123 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\CmsPage;
+use App\Models\CmsPost;
+use App\Models\CmsSetting;
+use Illuminate\Support\Facades\Cache;
+
+class HomeContentService
+{
+    public function __construct(private SiteDataService $siteData) {}
+
+    public function all(): array
+    {
+        return Cache::remember('cms_home_content', 3600, function () {
+            $page = CmsPage::query()->where('slug', 'home')->first();
+            $stored = $page?->content ?? [];
+
+            return [
+                'hero' => array_merge($this->defaultHero(), $stored['hero'] ?? []),
+                'stats' => $stored['stats'] ?? $this->siteData->stats(),
+                'why_bisan' => $stored['why_bisan'] ?? $this->siteData->whyBisan(),
+                'partners' => $stored['partners'] ?? $this->siteData->partners(),
+                'testimonials' => $stored['testimonials'] ?? $this->defaultTestimonials(),
+                'trust_badges' => $stored['trust_badges'] ?? $this->defaultTrustBadges(),
+                'cta' => array_merge($this->defaultCta(), $stored['cta'] ?? []),
+            ];
+        });
+    }
+
+    public function save(array $content): void
+    {
+        $page = CmsPage::query()->firstOrCreate(
+            ['slug' => 'home'],
+            [
+                'title' => 'صفحه اصلی',
+                'meta_title' => 'بیسان | BISAN Holding',
+                'is_published' => true,
+                'is_system' => true,
+                'sort_order' => 1,
+            ]
+        );
+
+        $page->update(['content' => $content]);
+        $this->clearCache();
+    }
+
+    public function clearCache(): void
+    {
+        Cache::forget('cms_home_content');
+    }
+
+    public function latestPosts(int $limit = 3)
+    {
+        return CmsPost::query()
+            ->published()
+            ->with('category')
+            ->orderByDesc('published_at')
+            ->orderByDesc('created_at')
+            ->take($limit)
+            ->get();
+    }
+
+    public function defaultHero(): array
+    {
+        return [
+            'eyebrow' => '+۱۲۰۰ کسب‌وکار · ۳ محصول آماده · پروژه اختصاصی',
+            'title_line1' => 'نرم‌افزار درست برای',
+            'rotate_words' => ['فروش بیشتر', 'کار منظم‌تر', 'رشد سریع‌تر'],
+            'title_line2' => 'کسب‌وکار شما',
+            'lead' => '۳ محصول آماده داریم — یا اگر نیازتان فرق دارد، همان را برایتان می‌سازیم. یک تماس کافی است تا بفهمید کدام راه برای شما بهتر است.',
+            'cta_primary' => 'مشاوره رایگان',
+            'cta_secondary' => 'کدام محصول مناسب من است؟',
+            'chips' => ['پاسخ در ۲۴ ساعت', 'پشتیبانی فارسی', 'بدون پیچیدگی فنی'],
+            'pills' => $this->siteData->heroPills(),
+        ];
+    }
+
+    public function defaultTestimonials(): array
+    {
+        return [
+            [
+                'name' => 'سارا محمدی',
+                'role' => 'مدیر فروش، شرکت توزیع کالا',
+                'text' => 'بعد از راهبر، دیگر هیچ پیگیری در اکسل گم نمی‌شود. تیم فروش ما ۴۰٪ سریع‌تر به قرارداد می‌رسد.',
+                'rating' => 5,
+            ],
+            [
+                'name' => 'دکتر رضایی',
+                'role' => 'مدیر کلینیک زیبایی',
+                'text' => 'نوژارو نوبت‌دهی آنلاین و مدیریت پرسنل را یکجا حل کرد. مشتریان راضی‌ترند و درآمد شفاف‌تر شده.',
+                'rating' => 5,
+            ],
+            [
+                'name' => 'امیر حسینی',
+                'role' => 'صاحب فروشگاه آنلاین',
+                'text' => 'افزونه وردپرس لیدهای سایت را مستقیم به CRM می‌فرستد. دیگر لازم نیست دستی کپی کنیم.',
+                'rating' => 5,
+            ],
+        ];
+    }
+
+    public function defaultTrustBadges(): array
+    {
+        return [
+            ['icon' => 'shield', 'label' => '۱۰ سال تجربه'],
+            ['icon' => 'users', 'label' => '+۱۲۰۰ مشتری'],
+            ['icon' => 'support', 'label' => 'پشتیبانی ۲۴/۷'],
+            ['icon' => 'star', 'label' => '۹۸٪ رضایت'],
+        ];
+    }
+
+    public function defaultCta(): array
+    {
+        return [
+            'title' => 'آماده شروع هستید؟',
+            'subtitle' => 'محصول آماده یا پروژه اختصاصی — با یک تماس راه را پیدا می‌کنیم.',
+            'primary' => 'مشاوره رایگان',
+            'secondary' => 'پروژه اختصاصی',
+        ];
+    }
+}

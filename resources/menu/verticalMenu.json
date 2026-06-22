@@ -1,0 +1,58 @@
+{
+  "menu": [
+    {
+      "menuHeader": "مدیریت محتوا"
+    },
+    {
+      "url": "admin",
+      "name": "داشبورد",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "admin.dashboard"
+    },
+    {
+      "url": "admin/home",
+      "name": "صفحه اصلی",
+      "icon": "menu-icon tf-icons ti ti-home",
+      "slug": "admin.home"
+    },
+    {
+      "url": "admin/pages",
+      "name": "صفحات",
+      "icon": "menu-icon tf-icons ti ti-file-text",
+      "slug": "admin.pages"
+    },
+    {
+      "url": "admin/posts",
+      "name": "بلاگ",
+      "icon": "menu-icon tf-icons ti ti-article",
+      "slug": "admin.posts"
+    },
+    {
+      "url": "admin/products",
+      "name": "محصولات",
+      "icon": "menu-icon tf-icons ti ti-package",
+      "slug": "admin.products"
+    },
+    {
+      "url": "admin/media",
+      "name": "رسانه",
+      "icon": "menu-icon tf-icons ti ti-photo",
+      "slug": "admin.media"
+    },
+    {
+      "menuHeader": "ارتباطات"
+    },
+    {
+      "url": "admin/messages",
+      "name": "پیام‌ها",
+      "icon": "menu-icon tf-icons ti ti-mail",
+      "slug": "admin.messages"
+    },
+    {
+      "url": "admin/settings",
+      "name": "تنظیمات",
+      "icon": "menu-icon tf-icons ti ti-settings",
+      "slug": "admin.settings"
+    }
+  ]
+}

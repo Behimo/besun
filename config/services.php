@@ -35,10 +35,4 @@ return [
         ],
     ],
 
-    'woocommerce' => [
-        'verify_ssl' => env('WOOCOMMERCE_VERIFY_SSL', true),
-        'user_agent' => env('WOOCOMMERCE_USER_AGENT', 'RahbarCRM/1.0 WooCommerce-API-Client'),
-        'headers' => json_decode((string) env('WOOCOMMERCE_HTTP_HEADERS', '{}'), true) ?: [],
-    ],
-
 ];

@@ -5,37 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', config('app.name', 'BISAN Holding')) — {{ $pageTitle ?? 'زیرساخت رشد هوشمند' }}</title>
-    <meta name="description" content="@yield('description', 'هلدینگ فناوری بیسان — راهبر CRM، نوژارو و افزونه وردپرس برای مدیریت فروش، خدمات و رشد کسب‌وکار')">
-    <meta name="keywords" content="بیسان, BISAN, CRM, راهبر, نوژارو, نرم‌افزار, SaaS, ایران">
-    <meta name="author" content="BISAN Holding">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ url()->current() }}">
+    @php $seoMeta = $seo ?? []; @endphp
+
+    <title>{{ $seoMeta['title'] ?? config('cms.site_name') }}</title>
+    <meta name="description" content="{{ $seoMeta['description'] ?? '' }}">
+    @if (!empty($seoMeta['keywords']))
+        <meta name="keywords" content="{{ $seoMeta['keywords'] }}">
+    @endif
+    <meta name="author" content="{{ config('cms.site_name') }}">
+    <meta name="robots" content="{{ $seoMeta['robots'] ?? 'index, follow' }}">
+    <link rel="canonical" href="{{ $seoMeta['canonical'] ?? url()->current() }}">
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fa_IR">
-    <meta property="og:site_name" content="BISAN Holding">
-    <meta property="og:title" content="@yield('og_title', config('app.name') . ' — زیرساخت رشد هوشمند')">
-    <meta property="og:description" content="@yield('description', 'مجموعه‌ای از محصولات نرم‌افزاری برای مدیریت، ارتباط با مشتری و توسعه کسب‌وکارها')">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="{{ config('cms.site_name') }}">
+    <meta property="og:title" content="{{ $seoMeta['og_title'] ?? $seoMeta['title'] ?? config('cms.site_name') }}">
+    <meta property="og:description" content="{{ $seoMeta['description'] ?? '' }}">
+    <meta property="og:url" content="{{ $seoMeta['canonical'] ?? url()->current() }}">
+    @if (!empty($seoMeta['og_image']))
+        <meta property="og:image" content="{{ $seoMeta['og_image'] }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:alt" content="{{ $seoMeta['og_title'] ?? $seoMeta['title'] ?? '' }}">
+    @endif
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('og_title', config('app.name'))">
-    <meta name="twitter:description" content="@yield('description', 'مجموعه‌ای از محصولات نرم‌افزاری برای مدیریت، ارتباط با مشتری و توسعه کسب‌وکارها')">
+    <meta name="twitter:title" content="{{ $seoMeta['og_title'] ?? $seoMeta['title'] ?? '' }}">
+    <meta name="twitter:description" content="{{ $seoMeta['description'] ?? '' }}">
+    @if (!empty($seoMeta['og_image']))
+        <meta name="twitter:image" content="{{ $seoMeta['og_image'] }}">
+    @endif
+    @if (config('cms.twitter_handle'))
+        <meta name="twitter:site" content="{{ config('cms.twitter_handle') }}">
+    @endif
 
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate" hreflang="fa-IR" href="{{ url()->current() }}">
 
-    <script type="application/ld+json">
-    {
-        "@@context": "https://schema.org",
-        "@@type": "Organization",
-        "name": "BISAN Holding",
-        "alternateName": "بیسان",
-        "url": "{{ config('app.url') }}",
-        "description": "مجموعه‌ای از محصولات نرم‌افزاری برای مدیریت، ارتباط با مشتری و توسعه کسب‌وکارها در دنیای دیجیتال",
-        "sameAs": []
-    }
-    </script>
+    @if (!empty($structuredData))
+        @foreach ($structuredData as $schema)
+            <script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+        @endforeach
+    @else
+        <script type="application/ld+json">{!! json_encode(app(\App\Services\SeoService::class)->organizationSchema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    @endif
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')

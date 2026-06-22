@@ -1,0 +1,57 @@
+@extends('layouts.admin')
+
+@section('title', 'صفحات')
+
+@section('content')
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+    <div>
+        <h4 class="mb-1">مدیریت صفحات</h4>
+        <p class="text-muted mb-0">صفحات سیستمی و داینامیک سایت</p>
+    </div>
+    <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">
+        <i class="ti ti-plus me-1"></i>صفحه جدید
+    </a>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>صفحه</th>
+                    <th>نوع</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($pages as $page)
+                    <tr>
+                        <td>
+                            <div class="fw-medium">{{ $page->title }}</div>
+                            <small class="text-muted" dir="ltr">{{ $page->is_system ? '/'.$page->slug : '/p/'.$page->slug }}</small>
+                        </td>
+                        <td>
+                            @if ($page->is_system)
+                                <span class="badge bg-label-secondary">سیستمی</span>
+                            @else
+                                <span class="badge bg-label-info">داینامیک</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($page->is_published)
+                                <span class="badge bg-label-success">منتشر شده</span>
+                            @else
+                                <span class="badge bg-label-warning">پیش‌نویس</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.pages.edit', $page) }}" class="btn btn-sm btn-label-primary">ویرایش</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

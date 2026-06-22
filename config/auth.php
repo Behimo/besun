@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'cms' => [
+            'driver' => 'session',
+            'provider' => 'cms_admins',
+        ],
     ],
 
     /*
@@ -64,11 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'cms_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\CmsAdmin::class,
+        ],
     ],
 
     /*
