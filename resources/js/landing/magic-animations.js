@@ -177,6 +177,7 @@ export function registerMagicAnimations(Alpine) {
 
         init() {
             if (window.matchMedia('(pointer: coarse)').matches) return;
+            if (document.documentElement.getAttribute('data-theme') === 'light') return;
 
             document.body.classList.add('has-magic-cursor');
 

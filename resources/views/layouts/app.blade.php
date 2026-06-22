@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('bisan-theme');
+                if (t === 'light' || t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', t);
+                    document.documentElement.style.colorScheme = t;
+                }
+            } catch (e) {}
+        })();
+    </script>
 
     @php $seoMeta = $seo ?? []; @endphp
 

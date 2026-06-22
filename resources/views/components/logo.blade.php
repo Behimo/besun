@@ -13,11 +13,11 @@
     <div class="relative flex {{ $s['box'] }} shrink-0 items-center justify-center">
         <div class="absolute inset-0 rotate-45 rounded-lg bg-bisan-orange/25 blur-md"></div>
         <div class="relative flex {{ $s['box'] }} rotate-45 items-center justify-center rounded-lg border border-bisan-orange/40 bg-gradient-to-br from-bisan-orange to-orange-700 shadow-[0_0_20px_rgba(255,102,0,0.4)]">
-            <span class="-rotate-45 {{ $s['text'] }} font-black text-white">۳</span>
+            <span class="-rotate-45 {{ $s['text'] }} logo-mark font-black text-white">۳</span>
         </div>
     </div>
     <div class="leading-tight">
-        <span class="block {{ $s['name'] }} font-bold tracking-wide text-white">BISAN</span>
-        <span class="block {{ $s['sub'] }} font-medium text-slate-400">تجارت هوشمند ایرانیان</span>
+        <span class="block {{ $s['name'] }} logo-name font-bold tracking-wide text-white">BISAN</span>
+        <span class="block {{ $s['sub'] }} logo-sub font-medium text-slate-400">تجارت هوشمند ایرانیان</span>
     </div>
 </div>

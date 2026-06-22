@@ -1,9 +1,11 @@
 import Alpine from 'alpinejs';
 import { registerMagicAnimations } from './landing/magic-animations';
+import { initTheme } from './theme';
 
 window.Alpine = Alpine;
 
 registerMagicAnimations(Alpine);
+initTheme(Alpine);
 
 Alpine.store('landing', {
     activeSection: 'hero',

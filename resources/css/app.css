@@ -1148,6 +1148,18 @@
         @apply opacity-100;
     }
 
+    .theme-toggle {
+        @apply inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-slate-300 transition-all duration-300;
+    }
+
+    .theme-toggle:hover {
+        @apply border-bisan-orange/35 bg-bisan-orange/10 text-bisan-orange-light;
+    }
+
+    .mobile-nav-link {
+        @apply transition-colors duration-200 hover:bg-white/5 hover:text-white;
+    }
+
     [data-sr] {
         opacity: 0;
         transition:
@@ -2839,3 +2851,5 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+@import './light-theme.css';
