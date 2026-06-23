@@ -174,12 +174,10 @@ export function registerMagicAnimations(Alpine) {
         visible: false,
         hovering: false,
         ringScale: 1,
+        active: false,
 
         init() {
             if (window.matchMedia('(pointer: coarse)').matches) return;
-            if (document.documentElement.getAttribute('data-theme') === 'light') return;
-
-            document.body.classList.add('has-magic-cursor');
 
             this.onMove = (e) => {
                 this.x = e.clientX;
@@ -189,19 +187,51 @@ export function registerMagicAnimations(Alpine) {
 
             this.onLeave = () => { this.visible = false; };
 
-            window.addEventListener('mousemove', this.onMove);
-            document.addEventListener('mouseleave', this.onLeave);
+            this.onHoverEnter = () => { this.hovering = true; this.ringScale = 1.8; };
+            this.onHoverLeave = () => { this.hovering = false; this.ringScale = 1; };
 
             document.querySelectorAll('a, button, [data-magnetic]').forEach((el) => {
-                el.addEventListener('mouseenter', () => { this.hovering = true; this.ringScale = 1.8; });
-                el.addEventListener('mouseleave', () => { this.hovering = false; this.ringScale = 1; });
+                el.addEventListener('mouseenter', this.onHoverEnter);
+                el.addEventListener('mouseleave', this.onHoverLeave);
             });
+
+            this.$watch('$store.theme.mode', (mode) => this.syncTheme(mode));
+            this.syncTheme(this.$store.theme.mode);
+        },
+
+        syncTheme(mode) {
+            if (mode === 'light') {
+                this.deactivate();
+            } else {
+                this.activate();
+            }
+        },
+
+        activate() {
+            if (this.active) return;
+            this.active = true;
+            document.body.classList.add('has-magic-cursor');
+            window.addEventListener('mousemove', this.onMove);
+            document.addEventListener('mouseleave', this.onLeave);
+        },
+
+        deactivate() {
+            if (!this.active) return;
+            this.active = false;
+            this.visible = false;
+            this.hovering = false;
+            this.ringScale = 1;
+            document.body.classList.remove('has-magic-cursor');
+            window.removeEventListener('mousemove', this.onMove);
+            document.removeEventListener('mouseleave', this.onLeave);
         },
 
         destroy() {
-            window.removeEventListener('mousemove', this.onMove);
-            document.removeEventListener('mouseleave', this.onLeave);
-            document.body.classList.remove('has-magic-cursor');
+            this.deactivate();
+            document.querySelectorAll('a, button, [data-magnetic]').forEach((el) => {
+                el.removeEventListener('mouseenter', this.onHoverEnter);
+                el.removeEventListener('mouseleave', this.onHoverLeave);
+            });
         },
 
         get dotStyle() {

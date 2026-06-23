@@ -1492,7 +1492,7 @@
     }
 
     .scroll-indicator__mouse {
-        @apply flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1.5;
+        @apply flex h-10 w-6 items-start justify-center overflow-hidden rounded-full border border-white/20 p-1.5;
     }
 
     .scroll-indicator__wheel {

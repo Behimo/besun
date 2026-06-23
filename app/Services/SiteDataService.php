@@ -73,7 +73,7 @@ class SiteDataService
     {
         return [
             ['title' => 'راهبر CRM', 'text' => 'قیف فروش، پیگیری و گزارش — برای تیم‌های فروش', 'href' => 'products.show', 'slug' => 'rahbar'],
-            ['title' => 'نوژارو', 'text' => 'نوبت آنلاین، پرسنل و چند شعبه — برای خدمات', 'href' => 'products.show', 'slug' => 'nojaro'],
+            ['title' => 'نوژارو', 'text' => 'پلتفرم SaaS — مجموعه‌ها، ماژول و اشتراک', 'href' => 'products.show', 'slug' => 'nojaro'],
             ['title' => 'افزونه وردپرس', 'text' => 'اتصال سایت و ووکامرس به CRM — خودکار', 'href' => 'products.show', 'slug' => 'wordpress-plugin'],
         ];
     }
@@ -203,36 +203,128 @@ class SiteDataService
                 'slug' => 'rahbar',
                 'title' => 'راهبر',
                 'subtitle' => 'Rahbar CRM',
-                'description' => 'مشتری را گم نکنید. از اولین تماس تا امضای قرارداد، همه‌چیز یکجا.',
+                'description' => 'مشتری را گم نکنید. از اولین تماس تا امضای قرارداد، همه‌چیز یکجا — با قیف فروش، گزارش لحظه‌ای و تیم هماهنگ.',
                 'accent' => 'orange',
                 'visual' => 'crm',
-                'audience' => 'تیم فروش و بازاریابی',
-                'features' => ['هیچ پیگیری فراموش نمی‌شود', 'ببینید کدام فروشنده بهتر می‌فروشد', 'گزارش ساده — بدون اکسل'],
+                'audience' => 'تیم فروش، بازاریابی و مدیران کسب‌وکار',
+                'features' => [
+                    'قیف فروش بصری — ببینید معامله کجا گیر کرده',
+                    'یادآوری خودکار — هیچ پیگیری فراموش نمی‌شود',
+                    'گزارش عملکرد هر فروشنده، بدون اکسل',
+                    'مدیریت لید، مخاطب، معامله و فعالیت‌ها',
+                    'گفتگوی تیم و اعلان‌های لحظه‌ای',
+                    'داشبورد درآمد و نرخ تبدیل',
+                ],
                 'cta' => 'دمو رایگان راهبر',
                 'is_featured' => true,
-                'body' => "راهبر CRM سیستم مدیریت مشتری و فروش بیسان است که برای تیم‌های فروش ایرانی طراحی شده.\n\nاز لید اولیه تا قرارداد نهایی، هر مرحله قابل پیگیری است. قیف فروش، وظایف روزانه، گزارش عملکرد فروشندگان و یادآوری خودکار — همه در یک پنل ساده.\n\nاگر الان با اکسل یا واتساپ مشتریان را مدیریت می‌کنید، راهبر جایگزین منظم و قابل گزارش‌گیری است.",
+                'dashboard_image' => '/marketing/rahbar-dashboard.png',
+                'website_url' => 'https://rahbarteam.com',
+                'body' => "راهبر CRM سیستم مدیریت مشتری و فروش بیسان است — ساخته‌شده برای تیم‌های فروش ایرانی که می‌خواهند سریع‌تر بفروشند و منظم‌تر کار کنند.\n\nاز اولین لید تا امضای قرارداد، هر مرحله در قیف فروش قابل مشاهده است. تسک‌های روزانه، پیگیری‌های سررسیدگذشته، گزارش درآمد و عملکرد فروشندگان — همه در یک پنل فارسی و ساده.\n\nاگر الان با اکسل، واتساپ یا دفترچه یادداشت مشتریان را مدیریت می‌کنید، راهبر جایگزین حرفه‌ای و مقیاس‌پذیر است. بیش از ۱۲۰۰ کسب‌وکار هر روز با راهبر کار می‌کنند.",
                 'highlights' => [
                     ['label' => 'قیف فروش', 'desc' => 'مراحل فروش را ببینید و گلوگاه‌ها را پیدا کنید'],
                     ['label' => 'یادآوری خودکار', 'desc' => 'هیچ پیگیری فراموش نمی‌شود'],
                     ['label' => 'گزارش تیم', 'desc' => 'عملکرد هر فروشنده شفاف و قابل مقایسه'],
                 ],
+                'stats' => [
+                    ['value' => '+۱۲۰۰', 'label' => 'کسب‌وکار فعال'],
+                    ['value' => '۸۹٪', 'label' => 'نرخ تبدیل میانگین'],
+                    ['value' => '۴۰٪', 'label' => 'سریع‌تر تا قرارداد'],
+                    ['value' => '۳ روز', 'label' => 'راه‌اندازی اولیه'],
+                ],
+                'capabilities' => [
+                    ['title' => 'قیف فروش', 'desc' => 'معاملات را در مراحل مختلف ببینید، جابه‌جا کنید و گلوگاه‌های فروش را شناسایی کنید.'],
+                    ['title' => 'لید و مخاطب', 'desc' => 'همه اطلاعات تماس، تاریخچه مکالمه و وضعیت هر مشتری در یک پروفایل واحد.'],
+                    ['title' => 'وظایف و پیگیری', 'desc' => 'تسک روزانه، سررسید گذشته و یادآوری خودکار — تیم همیشه می‌داند قدم بعدی چیست.'],
+                    ['title' => 'بازاریابی و کمپین', 'desc' => 'لیدهای کمپین را ردیابی کنید و ببینید کدام کانال بهترین نتیجه می‌دهد.'],
+                    ['title' => 'گزارش و تحلیل', 'desc' => 'درآمد، نرخ تبدیل، عملکرد فروشندگان و قیف فروش — بدون خروجی گرفتن از اکسل.'],
+                    ['title' => 'گفتگوی تیم', 'desc' => 'هماهنگی داخلی بدون پراکندگی پیام‌ها در واتساپ و تلگرام.'],
+                ],
+                'use_cases' => [
+                    ['title' => 'تیم فروش B2B', 'desc' => 'پیگیری قراردادهای بلندمدت و مذاکرات چندمرحله‌ای'],
+                    ['title' => 'آژانس و خدمات', 'desc' => 'مدیریت پروژه‌های مشتری و تحویل به‌موقع'],
+                    ['title' => 'فروشگاه و توزیع', 'desc' => 'پیگیری سفارش‌های عمده و مشتریان تکراری'],
+                    ['title' => 'استارتاپ در حال رشد', 'desc' => 'ساختار فروش از روز اول، قبل از شلوغ شدن'],
+                ],
+                'benefits' => [
+                    ['pain' => 'پیگیری‌ها در واتساپ و اکسل گم می‌شود', 'solution' => 'همه تماس‌ها و وظایف در یک سیستم با یادآور خودکار'],
+                    ['pain' => 'نمی‌دانید کدام فروشنده بهتر کار می‌کند', 'solution' => 'گزارش عملکرد شفاف برای هر نفر در تیم'],
+                    ['pain' => 'مدیر نمی‌داند معامله کجا گیر کرده', 'solution' => 'قیف فروش بصری با وضعیت لحظه‌ای هر معامله'],
+                    ['pain' => 'گزارش‌گیری ساعت‌ها وقت می‌گیرد', 'solution' => 'داشبورد آماده — درآمد، لید و تبدیل در یک نگاه'],
+                ],
+                'faqs' => [
+                    ['q' => 'راهبر برای چند نفر مناسب است؟', 'a' => 'از تیم ۲ نفره تا سازمان‌های ۵۰+ نفره — با نقش‌های دسترسی مختلف و مدیریت مجموعه.'],
+                    ['q' => 'چقدر طول می‌کشد راه‌اندازی شود؟', 'a' => 'معمولاً در ۳ روز کاری آماده استفاده است. تیم ما آموزش رایگان هم ارائه می‌دهد.'],
+                    ['q' => 'آیا با سایت وردپرس وصل می‌شود؟', 'a' => 'بله — با افزونه وردپرس بیسان، لیدهای سایت مستقیم وارد راهبر می‌شوند.'],
+                    ['q' => 'داده‌ها کجا ذخیره می‌شوند؟', 'a' => 'روی سرور امن ابری با پشتیبان‌گیری منظم. دسترسی ۲۴ ساعته از هر دستگاه.'],
+                ],
+                'testimonial' => [
+                    'quote' => 'بعد از راهبر، تیم فروش ما ۴۰٪ سریع‌تر به قرارداد می‌رسد. دیگر هیچ پیگیری در اکسل گم نمی‌شود و مدیر هر روز وضعیت قیف را می‌بیند.',
+                    'name' => 'سارا محمدی',
+                    'role' => 'مدیر فروش، شرکت توزیع کالا',
+                ],
             ],
             [
                 'slug' => 'nojaro',
                 'title' => 'نوژارو',
-                'subtitle' => 'Nojaro',
-                'description' => 'نوبت، پرسنل و درآمد — برای کلینیک، سالن، آموزشگاه و هر کسب‌وکار خدماتی.',
+                'subtitle' => 'Nozharo',
+                'description' => 'پلتفرم SaaS آماده — مجموعه‌ها، ماژول‌ها، اشتراک و پرداخت را از یک پنل مدیریت کنید و سریع‌تر رشد کنید.',
                 'accent' => 'purple',
                 'visual' => 'service',
-                'audience' => 'کسب‌وکارهای خدماتی',
-                'features' => ['مشتری آنلاین نوبت بگیرد', 'همه شعب را یکجا ببینید', 'درآمد هر روز، شفاف و روشن'],
+                'audience' => 'استارتاپ‌های SaaS، پلتفرم‌ها و کسب‌وکارهای چندمحصولی',
+                'features' => [
+                    'مدیریت چندمجموعه‌ای از یک داشبورد',
+                    'کاتالوگ ماژول و اشتراک‌های فعال',
+                    'پرداخت SaaS و گزارش تراکنش‌ها',
+                    'تیم فروش، پورسانت و دوره حقوق',
+                    'پشتیبانی تیکت و مدیریت کاربران',
+                    'هشدار انقضای اشتراک و مجموعه‌ها',
+                ],
                 'cta' => 'دمو رایگان نوژارو',
                 'is_featured' => false,
-                'body' => "نوژارو برای کسب‌وکارهای خدماتی ساخته شده: کلینیک، سالن زیبایی، آموزشگاه، مشاوره و هر جایی که نوبت و پرسنل مهم است.\n\nمشتریان آنلاین نوبت می‌گیرند، پرسنل برنامه کاری خود را می‌بینند و مدیر درآمد روزانه هر شعبه را یکجا مشاهده می‌کند.\n\nدیگر نیازی به دفترچه نوبت یا پیام‌های پراکنده واتساپ نیست.",
+                'dashboard_image' => '/marketing/nozharo-dashboard.png',
+                'website_url' => 'https://nozharo.ir',
+                'body' => "نوژارو زیرساخت SaaS بیسان است — برای کسب‌وکارهایی که چند محصول، چند مشتری سازمانی یا چند شعبه دارند و نمی‌خواهند از صفر پلتفرم بسازند.\n\nدر پنل مدیریت نوژارو، مجموعه‌ها، کاربران، ماژول‌های فعال، اشتراک‌ها، پرداخت‌ها و تیم فروش را یکجا می‌بینید. هر مجموعه ماژول‌های خود را فعال می‌کند و شما کل اکوسیستم را کنترل می‌کنید.\n\nبه‌جای ماه‌ها توسعه زیرساخت، نوژارو را در چند هفته راه‌اندازی کنید و روی رشد محصول تمرکز کنید.",
                 'highlights' => [
-                    ['label' => 'نوبت آنلاین', 'desc' => 'مشتری ۲۴ ساعته نوبت رزرو می‌کند'],
-                    ['label' => 'مدیریت پرسنل', 'desc' => 'برنامه کاری و درآمد هر نفر'],
-                    ['label' => 'چند شعبه', 'desc' => 'همه واحدها در یک داشبورد'],
+                    ['label' => 'مدیریت مجموعه‌ها', 'desc' => 'کاربران، پرسنل و وضعیت هر مجموعه'],
+                    ['label' => 'ماژول و اشتراک', 'desc' => 'کاتالوگ ماژول‌ها و اشتراک‌های فعال'],
+                    ['label' => 'مالی و پرداخت', 'desc' => 'تراکنش‌ها، درآمد و گزارش مالی'],
+                ],
+                'stats' => [
+                    ['value' => '۱۲+', 'label' => 'ماژول آماده'],
+                    ['value' => 'چند', 'label' => 'مجموعه همزمان'],
+                    ['value' => '۱ پنل', 'label' => 'مدیریت کل اکوسیستم'],
+                    ['value' => '۲ هفته', 'label' => 'تا راه‌اندازی'],
+                ],
+                'capabilities' => [
+                    ['title' => 'مدیریت مجموعه‌ها', 'desc' => 'ایجاد، ویرایش و نظارت بر مجموعه‌ها — با هشدار انقضا و وضعیت فعال/غیرفعال.'],
+                    ['title' => 'کاربران و پرسنل', 'desc' => 'مدیریت دسترسی کاربران، پرسنل پلتفرم و نقش‌های سازمانی.'],
+                    ['title' => 'کاتالوگ ماژول', 'desc' => 'تعریف ماژول‌ها، قیمت‌گذاری و فعال‌سازی اشتراک برای هر مجموعه.'],
+                    ['title' => 'پرداخت و مالی', 'desc' => 'تراکنش‌های SaaS، درآمد کل و گزارش پرداخت‌های موفق.'],
+                    ['title' => 'تیم فروش', 'desc' => 'نرخ پورسانت، دوره‌های حقوق و گزارش عملکرد فروشندگان.'],
+                    ['title' => 'پشتیبانی', 'desc' => 'سیستم تیکت یکپارچه برای پاسخگویی به مشتریان مجموعه‌ها.'],
+                ],
+                'use_cases' => [
+                    ['title' => 'استارتاپ SaaS', 'desc' => 'راه‌اندازی سریع بدون ساخت زیرساخت از صفر'],
+                    ['title' => 'پلتفرم چندمحصولی', 'desc' => 'هر محصول به‌صورت ماژول جداگانه فعال می‌شود'],
+                    ['title' => 'نمایندگی و فروش', 'desc' => 'مدیریت تیم فروش، پورسانت و مشتریان سازمانی'],
+                    ['title' => 'اکوسیستم سازمانی', 'desc' => 'چند واحد یا شعبه با داشبورد مرکزی'],
+                ],
+                'benefits' => [
+                    ['pain' => 'ساخت پلتفرم SaaS ماه‌ها زمان می‌برد', 'solution' => 'زیرساخت آماده — تمرکز روی محصول، نه کدنویسی پایه'],
+                    ['pain' => 'مدیریت اشتراک و پرداخت پراکنده است', 'solution' => 'همه تراکنش‌ها و اشتراک‌ها در یک پنل مالی'],
+                    ['pain' => 'هر مشتری سازمانی جداگانه پیگیری می‌شود', 'solution' => 'مجموعه‌ها با ماژول و اشتراک اختصاصی'],
+                    ['pain' => 'گزارش درآمد و فروش شفاف نیست', 'solution' => 'داشبورد درآمد، خریدهای موفق و گزارش پورسانت'],
+                ],
+                'faqs' => [
+                    ['q' => 'نوژارو برای چه کسب‌وکارهایی مناسب است؟', 'a' => 'استارتاپ‌های SaaS، پلتفرم‌های نرم‌افزاری، آژانس‌هایی با چند محصول و هر کسب‌وکاری که چند مشتری سازمانی دارد.'],
+                    ['q' => 'آیا می‌توان ماژول جدید اضافه کرد؟', 'a' => 'بله — کاتالوگ ماژول‌ها قابل توسعه است و هر مجموعه ماژول‌های موردنیاز خود را فعال می‌کند.'],
+                    ['q' => 'پرداخت آنلاین پشتیبانی می‌شود؟', 'a' => 'بله — تراکنش‌های SaaS، پرداخت‌های موفق و گزارش مالی در پنل مدیریت قابل مشاهده است.'],
+                    ['q' => 'چقدر طول می‌کشد راه‌اندازی شود؟', 'a' => 'بسته به تعداد ماژول‌ها، معمولاً بین ۱ تا ۲ هفته تا آماده‌سازی اولیه.'],
+                ],
+                'testimonial' => [
+                    'quote' => 'نوژارو مدیریت مجموعه‌ها، اشتراک‌ها و پرداخت‌ها را یکجا حل کرد. دیگر نیازی به چند ابزار جدا نیست — همه‌چیز از یک داشبورد کنترل می‌شود.',
+                    'name' => 'امیر کریمی',
+                    'role' => 'مدیر محصول، استارتاپ SaaS',
                 ],
             ],
             [
@@ -265,11 +357,7 @@ class SiteDataService
                 return $dbProducts->map(fn (CmsProduct $p) => $this->formatProduct($p));
             }
 
-            return collect($this->defaultProducts())->map(function (array $p) {
-                $p['href'] = route('products.show', $p['slug']);
-
-                return $p;
-            });
+            return collect($this->defaultProducts())->map(fn (array $p) => $this->enrichProduct($p));
         });
     }
 
@@ -284,9 +372,7 @@ class SiteDataService
         $default = collect($this->defaultProducts())->firstWhere('slug', $slug);
 
         if ($default) {
-            $default['href'] = route('products.show', $slug);
-
-            return $default;
+            return $this->enrichProduct($default);
         }
 
         return null;
@@ -348,9 +434,12 @@ class SiteDataService
     {
         return [
             ['feature' => 'مدیریت مشتری و فروش', 'rahbar' => true, 'nojaro' => false, 'wordpress' => false],
-            ['feature' => 'نوبت‌دهی و پرسنل', 'rahbar' => false, 'nojaro' => true, 'wordpress' => false],
+            ['feature' => 'قیف فروش و گزارش تیم', 'rahbar' => true, 'nojaro' => false, 'wordpress' => false],
+            ['feature' => 'پلتفرم SaaS و اشتراک', 'rahbar' => false, 'nojaro' => true, 'wordpress' => false],
+            ['feature' => 'مدیریت مجموعه و ماژول', 'rahbar' => false, 'nojaro' => true, 'wordpress' => false],
             ['feature' => 'اتصال سایت به CRM', 'rahbar' => false, 'nojaro' => false, 'wordpress' => true],
             ['feature' => 'گزارش و داشبورد', 'rahbar' => true, 'nojaro' => true, 'wordpress' => false],
+            ['feature' => 'پشتیبانی فارسی', 'rahbar' => true, 'nojaro' => true, 'wordpress' => true],
         ];
     }
 
@@ -460,27 +549,58 @@ class SiteDataService
         return Storage::disk('public')->url($image);
     }
 
+    private function salesFields(): array
+    {
+        return ['stats', 'capabilities', 'use_cases', 'benefits', 'faqs', 'testimonial'];
+    }
+
+    private function mergeSalesContent(array $product, array $defaults): array
+    {
+        foreach ($this->salesFields() as $field) {
+            $product[$field] = $defaults[$field] ?? ($product[$field] ?? null);
+        }
+
+        return $product;
+    }
+
     private function formatProduct(CmsProduct $product): array
     {
-        return [
+        $defaults = collect($this->defaultProducts())->firstWhere('slug', $product->slug) ?? [];
+
+        return $this->enrichProduct($this->mergeSalesContent([
             'slug' => $product->slug,
             'title' => $product->title,
-            'subtitle' => $product->subtitle,
-            'description' => $product->description,
+            'subtitle' => $defaults['subtitle'] ?? $product->subtitle,
+            'description' => $defaults['description'] ?? $product->description,
             'accent' => $product->accent,
             'visual' => $product->visual,
-            'dashboard_image' => $this->productImageUrl($product->dashboard_image),
-            'audience' => $product->audience,
-            'features' => $product->features ?? [],
-            'cta' => $product->cta,
-            'body' => $product->body,
-            'highlights' => $product->highlights ?? [],
+            'dashboard_image' => $this->productImageUrl($product->dashboard_image)
+                ?? ($defaults['dashboard_image'] ?? null),
+            'website_url' => $defaults['website_url'] ?? null,
+            'audience' => $defaults['audience'] ?? $product->audience,
+            'features' => $defaults['features'] ?? ($product->features ?? []),
+            'cta' => $defaults['cta'] ?? $product->cta,
+            'body' => $defaults['body'] ?? $product->body,
+            'highlights' => $defaults['highlights'] ?? [],
             'meta_title' => $product->meta_title,
             'meta_description' => $product->meta_description,
             'meta_keywords' => $product->meta_keywords,
             'og_image' => $product->og_image,
-            'href' => route('products.show', $product->slug),
             'is_featured' => $product->is_featured,
-        ];
+        ], $defaults));
+    }
+
+    private function enrichProduct(array $product): array
+    {
+        $defaults = collect($this->defaultProducts())->firstWhere('slug', $product['slug'] ?? '') ?? [];
+
+        $product['href'] = route('products.show', $product['slug']);
+        $product['dashboard_image'] = $this->productImageUrl($product['dashboard_image'] ?? null)
+            ?? ($defaults['dashboard_image'] ?? null);
+        $product['website_url'] ??= $defaults['website_url'] ?? null;
+        $product['body'] ??= $defaults['body'] ?? null;
+        $product['highlights'] ??= $defaults['highlights'] ?? [];
+
+        return $this->mergeSalesContent($product, $defaults);
     }
 }
