@@ -22,8 +22,9 @@
   height: 24px;
 }
 
-.app-brand-logo.demo svg {
-  width: 35px;
+.app-brand-logo.demo svg,
+.app-brand-logo.demo img {
+  width: auto;
   height: 24px;
 }
 

@@ -48,7 +48,7 @@ class SeoService
             'name' => config('cms.site_name'),
             'alternateName' => config('cms.site_name_fa'),
             'url' => config('app.url'),
-            'logo' => $this->absoluteUrl('/favicon.svg'),
+            'logo' => $this->absoluteUrl('/images/bisan/logo-full.png'),
             'description' => '۳ محصول آماده برای فروش و خدمات، یا پروژه اختصاصی برای کسب‌وکار شما',
             'email' => $contact['email'],
             'sameAs' => array_values($social),
